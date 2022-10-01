@@ -24,7 +24,9 @@ public class Reservation implements Serializable {
     @JoinColumn(name = "client")
     private Client client;
 
-    private Integer score;
+    @OneToOne
+    @JoinColumn(name = "score")
+    private Score score;
 
     public Integer getIdReservation() {
         return idReservation;
@@ -74,11 +76,11 @@ public class Reservation implements Serializable {
         this.client = client;
     }
 
-    public Integer getScore() {
+    public Score getScore() {
         return score;
     }
 
-    public void setScore(Integer score) {
+    public void setScore(Score score) {
         this.score = score;
     }
 }

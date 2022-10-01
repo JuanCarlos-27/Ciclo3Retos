@@ -22,14 +22,39 @@ public class CategoryService {
     }
 
     public Category saveCategory(Category c) {
-        return categoryRepository.saveCategory(c);
+        if (c.getId() == null){
+            return categoryRepository.saveCategory(c);
+        }else{
+            Optional<Category> ct = categoryRepository.getCategoryById(c.getId());
+            if (ct.isEmpty()){
+                return categoryRepository.saveCategory(c);
+            }else{
+                return c;
+            }
+        }
+    }
+    public Category updateCategory(Category category) {
+        if (category.getId() != null) {
+            Optional<Category> e = categoryRepository.getCategoryById(category.getId());
+            if (!e.isEmpty()) {
+                if (category.getDescription() != null) {
+                    e.get().setDescription(category.getDescription());
+                }
+                if (category.getName() != null) {
+                    e.get().setName(category.getName());
+                }
+                categoryRepository.saveCategory(e.get());
+                return e.get();
+            }
+        }
+        return category;
+    }
+    public boolean deleteCategory(Integer id){
+        Boolean d = getCategoryById(id).map(category -> {
+            categoryRepository.deleteCategory(category);
+            return true;
+        }).orElse(false);
+        return d;
     }
 
-    public boolean deleteCategory(Integer id){
-        categoryRepository.deleteCategory(id);
-        return true;
-    }
-    public Category updateCategory (Category c){
-        return categoryRepository.updateCategory(c);
-    }
 }

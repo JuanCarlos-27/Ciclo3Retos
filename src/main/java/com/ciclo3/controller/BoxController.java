@@ -29,13 +29,16 @@ public class BoxController {
     public Box saveBox(@RequestBody Box b){
         return boxService.saveBox(b);
     }
-    @DeleteMapping("/delete/{id}")
-    public boolean deleteBox(@PathVariable Integer id){
-        boxService.deleteBox(id);
-        return true;
-    }
     @PutMapping("/update")
-    public Box updateBox(@RequestBody Box b){
+    @ResponseStatus(HttpStatus.CREATED )
+    public Box updateBox(@RequestBody Box b) {
         return boxService.updateBox(b);
+    };
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean deleteBox(@PathVariable Integer id){
+        return boxService.deleteBox(id);
     }
+
 }

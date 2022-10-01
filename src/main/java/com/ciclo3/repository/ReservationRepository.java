@@ -22,12 +22,7 @@ public class ReservationRepository {
     public Reservation saveReservation(Reservation r){
         return reservationCrudRepository.save(r);
     }
-    public boolean deleteReservation(Integer id){
-        reservationCrudRepository.deleteById(id);
-        return true;
+    public void deleteReservation(Reservation r){
+        reservationCrudRepository.delete(r);
     }
-    public Reservation updateReservation(Reservation r){
-        return reservationCrudRepository.save(r);
-    }
-
 }

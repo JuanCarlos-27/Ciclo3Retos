@@ -33,14 +33,15 @@ public class CategoryController {
         return categoryService.saveCategory(c);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public boolean deleteCategory(@PathVariable Integer id) {
-        return categoryService.deleteCategory(id);
-    }
-
     @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED )
     public Category updateCategory(@RequestBody Category c) {
         return categoryService.updateCategory(c);
+    };
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean deleteCategory(@PathVariable Integer id){
+        return categoryService.deleteCategory(id);
     }
 }

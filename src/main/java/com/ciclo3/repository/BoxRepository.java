@@ -22,13 +22,8 @@ public class BoxRepository {
     public Box saveBox(Box b){
         return boxCrudRepository.save(b);
     }
-    public boolean deleteBox(Integer id){
-        boxCrudRepository.deleteById(id);
-        return true;
-    }
-
-    public Box updateBox(Box b){
-        return boxCrudRepository.save(b);
+    public void deleteBox(Box b){
+        boxCrudRepository.delete(b);
     }
 
 }

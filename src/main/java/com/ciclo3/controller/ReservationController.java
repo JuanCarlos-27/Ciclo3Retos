@@ -29,14 +29,16 @@ public class ReservationController {
     public Reservation saveReservation(@RequestBody Reservation r) {
         return reservationService.saveReservation(r);
     }
-    @DeleteMapping("/delete/{id}")
-    public boolean deleteReservation(@PathVariable Integer id){
-        reservationService.deleteReservation(id);
-        return true;
-    }
+
     @PutMapping("/update")
-    public Reservation updateReservation(@RequestBody Reservation r){
+    @ResponseStatus(HttpStatus.CREATED )
+    public Reservation updateReservation(@RequestBody Reservation r) {
         return reservationService.updateReservation(r);
+    };
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean deleteReservation(@PathVariable Integer id){
+        return reservationService.deleteReservation(id);
     }
 
 }

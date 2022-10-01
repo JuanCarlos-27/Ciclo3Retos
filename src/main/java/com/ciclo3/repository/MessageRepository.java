@@ -24,12 +24,8 @@ public class MessageRepository {
     public Message saveMessage(Message m) {
         return messageCrudRepository.save(m);
     }
-    public boolean deleteMessage(Integer id){
-        messageCrudRepository.deleteById(id);
-        return true;
-    }
-    public Message updateMessage (Message m){
-        return messageCrudRepository.save(m);
+    public void deleteMessage(Message m){
+        messageCrudRepository.delete(m);
     }
 
 }

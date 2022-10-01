@@ -24,11 +24,8 @@ public class ClientRepository {
     public Client saveClient(Client c) {
         return clientCrudRepository.save(c);
     }
-    public boolean deleteClient(Integer id){
-        clientCrudRepository.deleteById(id);
-        return true;
-    }
-    public Client updateClient (Client c){
-        return clientCrudRepository.save(c);
+    public void deleteClient(Client c){
+        clientCrudRepository.delete(c);
     }
 }
+

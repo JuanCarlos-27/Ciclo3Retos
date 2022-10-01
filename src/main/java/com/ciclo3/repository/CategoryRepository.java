@@ -24,12 +24,8 @@ public class CategoryRepository {
     public Category saveCategory(Category c) {
         return categoryCrudRepository.save(c);
     }
+    public void deleteCategory(Category c){
+        categoryCrudRepository.delete(c);
+    }
 
-    public boolean deleteCategory(Integer id){
-        categoryCrudRepository.deleteById(id);
-        return true;
-    }
-    public Category updateCategory (Category c){
-        return categoryCrudRepository.save(c);
-    }
 }

@@ -30,12 +30,16 @@ public class ClientController {
     public Client saveClient(@RequestBody Client c) {
         return clientService.saveClient(c);
     }
-    @DeleteMapping("/delete/{id}")
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED )
+    public Client updateClient(@RequestBody Client c) {
+        return clientService.updateClient(c);
+    };
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean deleteClient(@PathVariable Integer id){
         return clientService.deleteClient(id);
     }
-    @PutMapping("/update")
-    public Client updateClient (@RequestBody Client c){
-        return clientService.updateClient(c);
-    }
+
+
 }

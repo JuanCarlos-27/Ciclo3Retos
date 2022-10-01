@@ -20,13 +20,36 @@ public class MessageService {
         return messageRepository.getMessageById(id);
     }
     public Message saveMessage(Message m) {
-        return messageRepository.saveMessage(m);
+        if (m.getIdMessage() == null){
+            return messageRepository.saveMessage(m);
+        }else{
+            Optional<Message> ms = messageRepository.getMessageById(m.getIdMessage());
+            if (ms.isEmpty()){
+                return messageRepository.saveMessage(m);
+            }else{
+                return m;
+            }
+        }
+    }
+    public Message updateMessage(Message message) {
+        if (message.getIdMessage() != null) {
+            Optional<Message> e = messageRepository.getMessageById(message.getIdMessage());
+            if (!e.isEmpty()) {
+                if (message.getMessageText() != null) {
+                    e.get().setMessageText(message.getMessageText());
+                }
+                messageRepository.saveMessage(e.get());
+                return e.get();
+            }
+        }
+        return message;
     }
     public boolean deleteMessage(Integer id){
-        messageRepository.deleteMessage(id);
-        return true;
+        Boolean d = getMessageById(id).map(message -> {
+            messageRepository.deleteMessage(message);
+            return true;
+        }).orElse(false);
+        return d;
     }
-    public Message updateMessage (Message m){
-        return messageRepository.updateMessage(m);
-    }
+
 }
