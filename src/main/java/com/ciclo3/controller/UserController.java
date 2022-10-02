@@ -9,4 +9,21 @@ public class UserController {
     public String start(){
         return "index";
     }
+    @RequestMapping("/client")
+    public String client(){
+        return "client";
+    }
+    @RequestMapping("/category")
+    public String category(){
+        return "category";
+    }
+    @RequestMapping("/message")
+    public String message(){
+        return "message";
+    }
+    @RequestMapping("/reservation")
+    public String reservation(){
+        return "reservation";
+    }
+
 }
