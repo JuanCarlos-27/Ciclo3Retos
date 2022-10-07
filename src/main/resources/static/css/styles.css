@@ -23,24 +23,15 @@
     font-size: 18px;
 }
 
-.tab-link .link-box{
-    margin-top: 5px;
-    color: #0d6efd;
-}
-.tab-link .link-client{
-    margin-top: 5px;
-    color: #0d6efd;
-}
-.tab-link .link-category{
-    margin-top: 5px;
-    color: #0d6efd;
-}
-.tab-link .link-message{
+.tab-link .link-hover{
     margin-top: 5px;
     color: #0d6efd;
 }
 
-.tab-link .link-reservation{
-    margin-top: 5px;
-    color: #0d6efd;
+#btnAuth{
+    box-shadow: 6px 6px 10px 3px #000;
+}
+
+#btnAuth:hover{
+    box-shadow: 4px 0px 12px 0px #000;
 }

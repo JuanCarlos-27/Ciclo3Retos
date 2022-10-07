@@ -6,12 +6,15 @@ const leerReserva = () => {
         success : function(r) {
             $("tbody").empty();
             let tabla = `<tbody>`;
+            let date = new Date();
             for (let i = 0; i < r.length; i++) {
+                //date = r[i].startDate()
+                const {idReservation, startDate, devolutionDate,status} = r[i];
                 tabla += `<tr>
-                            <th scope="row">${r[i].idReservation}</th>
-                            <td>${r[i].startDate}</td>
-                            <td>${r[i].devolutionDate}</td>
-                            <td>${r[i].status}</td>
+                            <th scope="row">${idReservation}</th>
+                            <td>${startDate}</td>
+                            <td>${devolutionDate}</td>
+                            <td>${status}</td>
                             <td>${r[i].box.id} - ${r[i].box.name}</td>
                             <td>${r[i].client.idClient} - ${r[i].client.name}</td>
                             <td>
@@ -20,7 +23,8 @@ const leerReserva = () => {
                             </td>
                           <tr>`
             }
-            $("option").remove();
+            $("#palcoIdSelect option").remove();
+            $("#clientIdSelect option").remove();
             leerPalcos();
             leerClientes();
             tabla += '</tbody>'
@@ -31,6 +35,9 @@ const leerReserva = () => {
         },
     });
 }
+document.addEventListener("DOMContentLoaded", () => {
+    leerReserva()
+});
 
 const leerPalcos = () => {
     $.ajax({
@@ -39,7 +46,7 @@ const leerPalcos = () => {
         dataType : 'json',
         success : function(c) {
             c.forEach(e => {
-                $('#palcoIdSelect').prepend(`<option value=${e.id}>${e.id} - ${e.name}</option>`);
+                $('#palcoIdSelect').prepend(`<option id="optionPalcos" value=${e.id}>${e.id} - ${e.name}</option>`);
             });
         },
         error : function(xhr, status) {
@@ -54,7 +61,7 @@ const leerClientes = () => {
         dataType : 'json',
         success : function(c) {
             c.forEach(e => {
-                $('#clientIdSelect').prepend(`<option value=${e.idClient}>${e.idClient} - ${e.name}</option>`);
+                $('#clientIdSelect').prepend(`<option id="optionClients" value=${e.idClient}>${e.idClient} - ${e.name}</option>`);
             });
         },
         error : function(xhr, status) {
@@ -63,7 +70,6 @@ const leerClientes = () => {
     });
 }
 
-window.addEventListener("load", leerReserva);
 
 const limpiarCampos = ()=>{
     $("#startDate").val(null);
@@ -74,16 +80,16 @@ const llenarInputs = (info) =>{
     $("#idPalcoUpdate").val(info.box.id)
     $("#idClientUpdate").val(info.client.idClient)
     $("#startDateUpdate").val((info.startDate).slice(0,10));
+    $("#devolutionDateUpdate").attr("min",(info.startDate).slice(0,10));
     $("#devolutionDateUpdate").val((info.devolutionDate).slice(0,10));
-
-
 }
+
 const dataReservaToEdit = ()=>{
     let data={
         idReservation: $("#idUpdate").val(),
         startDate: $("#startDateUpdate").val(),
         devolutionDate: $("#devolutionDateUpdate").val(),
-        status:$("#statusIdSelect").val(),
+        status: $("#IdSelect").val()
     };
     return JSON.stringify(data);
 }
@@ -103,7 +109,7 @@ const dataReservaToSend = ()=>{
 }
 
 const guardar = (url, datos, consulta)=> {
-    $.ajax({    
+    $.ajax({
         url : url,
         type : 'POST',
         data: datos(),
@@ -126,11 +132,11 @@ $("#btnAgregarReserva").on("click", ()=>{
         title: '¡Se ha creado correctamente!',
         showConfirmButton: false,
         timer: 1500
-      })
+    })
 });
 
 const editar = (url, datos, consulta)=>{
-    $.ajax({    
+    $.ajax({
         url : url,
         type : 'PUT',
         data: datos(),
@@ -138,7 +144,7 @@ const editar = (url, datos, consulta)=>{
         success : function() {
         },
         error : function(xhr, status) {
-       //     alert('ha sucedido un problema');
+            //     alert('ha sucedido un problema');
         },
         complete: function(){
             consulta();
@@ -155,7 +161,7 @@ $("#btnActualizarReserva").on("click", ()=>{
         title: '¡Se ha actualizado correctamente!',
         showConfirmButton: false,
         timer: 1500
-      })
+    })
 });
 
 const eliminarReserva= (idReserva) =>{
@@ -169,9 +175,9 @@ const eliminarReserva= (idReserva) =>{
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: '¡Si, eliminar!'
-      }).then((result) => {
+    }).then((result) => {
         if (result.isConfirmed) {
-            $.ajax({    
+            $.ajax({
                 url : `http://150.136.154.173:8080/api/Reservation/${idReserva}`,
                 type : 'DELETE',
                 data: JSON.stringify(data),
@@ -181,7 +187,7 @@ const eliminarReserva= (idReserva) =>{
                         '¡Eliminado!',
                         'Se ha eliminado correctamente.',
                         'success'
-                      )
+                    )
                 },
                 error : function(xhr, status) {
                 },
@@ -190,5 +196,6 @@ const eliminarReserva= (idReserva) =>{
                 }
             });
         }
-      })
+    })
 }
+

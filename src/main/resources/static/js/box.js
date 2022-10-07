@@ -1,3 +1,15 @@
+$.get("/user",(data)=>{
+        const nameUser = data.name === null ? data.login : data.name;
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Bienvenido '+ nameUser,
+            showConfirmButton: false,
+            showCloseButton: true,
+            timerProgressBar:true,
+            timer: 5000
+        })
+});
 const leerPalco = () => {
     $.ajax({
         url : 'http://150.136.154.173:8080/api/Box/all',

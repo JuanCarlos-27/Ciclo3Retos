@@ -14,12 +14,13 @@
   <body>
     
     <div class="container d-flex flex-wrap justify-content-center mt-3">
-      <nav class="col-md-7 tab-link mb-5">
-            <li><a href="/">Palcos</a></li>
-            <li><a href="client">Clientes</a></li>
-            <li><a href="category">Categorias</a></li>
-            <li><a href="message">Mensajes</a></li>
-            <li><a class="link-reservation" href="reservation">Reservaciones</a></li>
+      <nav class="col-md-10 tab-link mb-5">
+          <li><a href="/box">Palcos</a></li>
+          <li><a href="/client">Clientes</a></li>
+          <li><a href="/category">Categorias</a></li>
+          <li><a href="/message">Mensajes</a></li>
+          <li><a class="link-hover" href="/reservation">Reservaciones</a></li>
+          <li><a href="/admin">Admin</a></li>
       </nav>
       <div class="row col-md-11">
         <div class="text-center">
@@ -66,13 +67,13 @@
               </div>
               <div class="mb-1">
                 <label for="recipient-name" class="col-form-label">Palco:</label>
-                  <select class="form-select" id="palcoIdSelect">
-                  </select>
+                <select class="form-select" id="palcoIdSelect">
+                </select>
               </div>
               <div class="mb-1">
                 <label for="recipient-name" class="col-form-label">Cliente:</label>
-                  <select class="form-select" id="clientIdSelect">
-                  </select>
+                <select class="form-select" id="clientIdSelect">
+                </select>
               </div>
             </form>
           </div>
@@ -117,9 +118,11 @@
               <div class="mb-1">
                 <label for="recipient-name" class="col-form-label">Estado:</label>
                   <select class="form-select" id="IdSelect">
-                    <option value="created">Creado</option>
-                    <option value="finished">Finalizado</option>
-                    <option value="canceled">Cancelado</option>
+                    <select class="form-select" id="IdSelect">
+                      <option value="created">Programado</option>
+                      <option value="cancelled">Cancelado</option>
+                      <option value="completed">Realizado</option>
+                    </select>
                   </select>
               </div>
             </form>
