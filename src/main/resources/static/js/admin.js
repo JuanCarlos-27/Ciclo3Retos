@@ -103,7 +103,7 @@ const editar = (url, datos, consulta)=>{
 }
 
 $("#btnActualizarAdmin").on("click", ()=>{
-    editar('http://150.136.154.173:8080/api/Box/update',dataAdminToEdit, leerAdmin);
+    editar('http://150.136.154.173:8080/api/Admin/update',dataAdminToEdit, leerAdmin);
     $("#btnActualizarAdmin").attr("data-bs-dismiss","modal")
     Swal.fire({
         position: 'center',
