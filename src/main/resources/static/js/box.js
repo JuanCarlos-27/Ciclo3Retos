@@ -16,27 +16,30 @@ const leerPalco = () => {
         type : 'GET',
         dataType : 'json',
         success : function(palco) {
-            $("tbody").empty();
-            let tabla = `<tbody>`;
+            $("#card-box").empty();
+            let card = "";
             for (let i = 0; i < palco.length; i++) {
-                tabla += `<tr>
-                            <th scope="row">${palco[i].id}</th>
-                            <td>${palco[i].name}</td>
-                            <td>${palco[i].location}</td>
-                            <td>${palco[i].capacity}</td>
-                            <td>${palco[i].description}</td> 
-                            <td>${palco[i].category.id}</td>
-                            <td>
-                                <button type="button" class="btn btn-info" onclick='llenarInputs(${JSON.stringify(palco[i])})' data-bs-toggle="modal" data-bs-target="#modalBoxEdit" data-bs-whatever="@mdo"><i class="bi bi-pencil-square"></i></button>
-                                <button type="button" class="btn btn-danger" id="btnBorrar" onclick="eliminarPalco(${palco[i].id})"><i class="bi bi-trash3-fill"></i></button>
-                            </td>
-                          <tr>`
+                card += `<div class="card text-center border-dark shadow p-3 mb-5 bg-body rounded mx-2" style="width: 20rem;">
+                <div class="card-body">
+                  <h5 class="card-title">${palco[i].name}</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><b>Id:</b> ${palco[i].id}</li>
+                  <li class="list-group-item"><b>Descripción:</b> ${palco[i].description}</li>
+                  <li class="list-group-item"><b>Localización:</b> ${palco[i].location}</li>
+                  <li class="list-group-item"><b>Capacidad:</b> ${palco[i].capacity}</li>
+                  <li class="list-group-item"><b>Categoria:</b> ${palco[i].category.name}</li>
+                </ul>
+                <div class="card-body">
+                  <button type="button" class="btn btn-info" onclick='llenarInputs(${JSON.stringify(palco[i])})' data-bs-toggle="modal" data-bs-target="#modalBoxEdit" data-bs-whatever="@mdo"><i class="bi bi-pencil-square"></i></button>
+                  <button type="button" class="btn btn-danger" id="btnBorrar" onclick="eliminarPalco(${palco[i].id})"><i class="bi bi-trash3-fill"></i></button>
+                </div>
+              </div>`
             }
             $("option").remove();
             leerCategorias();
-            tabla += '</tbody>'
 
-            $("#boxTable").append(tabla);
+            $("#card-box").append(card);
         },
         error : function(xhr, status) {
             alert('Disculpe, existió un problema');
@@ -101,7 +104,7 @@ const dataPalcoToEdit = ()=>{
 }
 
 const editar = (url, datos, consulta)=>{
-    $.ajax({    
+    $.ajax({
         url : url,
         type : 'PUT',
         data: datos(),
@@ -109,7 +112,7 @@ const editar = (url, datos, consulta)=>{
         success : function() {
         },
         error : function(xhr, status) {
-       //     alert('ha sucedido un problema');
+            //     alert('ha sucedido un problema');
         },
         complete: function(){
             consulta();
@@ -118,7 +121,7 @@ const editar = (url, datos, consulta)=>{
 }
 
 const guardar = (url, datos, consulta)=> {
-    $.ajax({    
+    $.ajax({
         url : url,
         type : 'POST',
         data: datos(),
@@ -140,7 +143,7 @@ $("#btnAgregarPalco").on("click", ()=>{
         title: '¡Se ha creado correctamente!',
         showConfirmButton: false,
         timer: 1500
-      })
+    })
 });
 
 
@@ -153,7 +156,7 @@ $("#btnActualizarPalco").on("click", ()=>{
         title: '¡Se ha actualizado correctamente!',
         showConfirmButton: false,
         timer: 1500
-      })
+    })
 });
 
 const eliminarPalco = (idPalco) =>{
@@ -167,9 +170,9 @@ const eliminarPalco = (idPalco) =>{
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: '¡Si, eliminar!'
-      }).then((result) => {
+    }).then((result) => {
         if (result.isConfirmed) {
-            $.ajax({    
+            $.ajax({
                 url : `http://150.136.154.173:8080/api/Box/${idPalco}`,
                 type : 'DELETE',
                 data: JSON.stringify(data),
@@ -179,7 +182,7 @@ const eliminarPalco = (idPalco) =>{
                         '¡Eliminado!',
                         'Se ha eliminado correctamente.',
                         'success'
-                      )
+                    )
                 },
                 error : function(xhr, status) {
                 },
@@ -188,5 +191,5 @@ const eliminarPalco = (idPalco) =>{
                 }
             });
         }
-      })
+    })
 }
